@@ -1,0 +1,26 @@
+{
+    "name": "teste_workflow",
+     "description": "Fluxo Entrada de Pedido.",
+     "version": 1,
+     "ownerEmail": "teste@gmail.com",
+     "failureWorkflow": "fluxo_de_erro",
+     "tasks": [
+       {
+         "name": "message_start_validar_preco_minimo",
+         "taskReferenceName": "message_start_validar_preco_minimo",
+         "type": "EVENT",
+         "sink": "amqp_queue:validar_preco_minimo",
+         "inputParameters": {
+           "pedido": "${workflow.input.pedido}"
+         }
+       },
+       {
+         "name": "validar_preco_minimo",
+         "taskReferenceName": "validar_preco_minimo",
+         "inputParameters": {
+           "pedido": "${workflow.input.pedido}"
+         },
+         "type": "WAIT"
+       }
+     ]
+   }
